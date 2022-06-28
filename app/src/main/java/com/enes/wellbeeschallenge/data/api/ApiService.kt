@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("movie/popular")
-    fun getPopularMovies(@Query("page") page: Int): Call<PopularMoviesApiResponse>
+    fun getPopularMovies(): Call<PopularMoviesApiResponse>
 
     @GET("movie/{movieId}/credits")
     fun getCastOfAMovie(@Path("movieId") movieId: Int): Call<MovieCastApiResponse>
