@@ -3,6 +3,8 @@ package com.enes.wellbeeschallenge.data.repository
 import PopularMoviesApiResponse
 import com.enes.wellbeeschallenge.data.NetworkCallback
 import com.enes.wellbeeschallenge.data.api.ApiService
+import com.enes.wellbeeschallenge.data.api.response.MovieCastApiResponse
+import com.enes.wellbeeschallenge.data.model.MovieCastModel
 import com.enes.wellbeeschallenge.data.model.MovieModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +32,27 @@ class MovieRepository @Inject constructor(
             }
 
             override fun onFailure(call: Call<PopularMoviesApiResponse>, t: Throwable) {
+                callback.onError(message = t.message ?: "")
+            }
+        })
+    }
+
+    fun getMovieDetail(movieId: Int, callback: NetworkCallback<List<MovieCastModel>>) {
+
+        val call: Call<MovieCastApiResponse> = apiService.getCastOfAMovie(movieId)
+        call.enqueue(object : Callback<MovieCastApiResponse> {
+            override fun onResponse(
+                call: Call<MovieCastApiResponse>,
+                response: Response<MovieCastApiResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val moviesCastApiResponse = response.body()!!
+                    callback.onSuccess(data = moviesCastApiResponse.cast)
+                } else {
+                    callback.onError(message = response.message())
+                }
+            }
+            override fun onFailure(call: Call<MovieCastApiResponse>, t: Throwable) {
                 callback.onError(message = t.message ?: "")
             }
         })

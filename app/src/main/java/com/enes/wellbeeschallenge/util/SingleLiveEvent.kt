@@ -16,15 +16,18 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
 
         if (hasActiveObservers()) {
-            Log.w("SingleLiveEvent","Multiple observers registered but only one will be notified of changes.")
+            Log.w("SingleLiveEvent", "Multiple observers registered but only one will be notified of changes.")
         }
 
         // Observe the internal MutableLiveData
-        super.observe(owner, Observer<T> { t ->
-            if (mPending.compareAndSet(true, false)) {
-                observer.onChanged(t)
+        super.observe(
+            owner,
+            Observer<T> { t ->
+                if (mPending.compareAndSet(true, false)) {
+                    observer.onChanged(t)
+                }
             }
-        })
+        )
     }
 
     @MainThread

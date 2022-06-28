@@ -1,5 +1,6 @@
 package com.enes.wellbeeschallenge.di.module
 
+import com.enes.wellbeeschallenge.BuildConfig
 import com.enes.wellbeeschallenge.data.Constants
 import com.enes.wellbeeschallenge.data.api.DefaultRequestInterceptor
 import com.enes.wellbeeschallenge.di.qualifier.DefaultInterceptor
@@ -9,10 +10,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
-import com.enes.wellbeeschallenge.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-
 import java.util.concurrent.TimeUnit
 
 @Module

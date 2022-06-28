@@ -15,6 +15,7 @@ android {
         versionName "1.0"
         buildConfigField "String", "API_BASE_URL", '"https://api.themoviedb.org/3/"'
         buildConfigField "String", "API_KEY", '"92d25e9e2aae2071f3911d7e38f2f565"'
+        buildConfigField "String", "API_IMAGE_PREFIX", '"https://image.tmdb.org/t/p/w500"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -69,6 +70,8 @@ dependencies {
     // Serialization
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
 
 kapt {
