@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.enes.wellbeeschallenge.R
-import com.enes.wellbeeschallenge.base.ISendChildFragment
 import com.enes.wellbeeschallenge.ui.fragment.populerMovies.PopularMoviesPageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,5 +20,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerLayout, fragment)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

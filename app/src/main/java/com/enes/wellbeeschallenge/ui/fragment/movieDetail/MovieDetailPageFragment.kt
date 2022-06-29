@@ -10,7 +10,7 @@ import com.enes.wellbeeschallenge.databinding.FragmentMovieDetailBinding
 import com.enes.wellbeeschallenge.ui.activity.MainActivity
 import com.enes.wellbeeschallenge.ui.ext.loadTmdbImage
 import com.enes.wellbeeschallenge.ui.fragment.adapter.MovieCastAdapter
-import com.enes.wellbeeschallenge.ui.fragment.adapter.PopularMoviesAdapter
+import com.enes.wellbeeschallenge.ui.fragment.person.PersonPageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,10 +71,13 @@ class MovieDetailPageFragment :
     }
 
     private fun setCastAdapter() {
-        mCastAdapter = MovieCastAdapter(requireActivity(),mCastList)
+        mCastAdapter = MovieCastAdapter(requireActivity(), mCastList)
         mCastAdapter.setCallBack(object : MovieCastAdapter.CallBack {
 
             override fun onClickItem(position: Int, movieCastModel: MovieCastModel) {
+                var fragment = PersonPageFragment.newInstance(mCastList[position])
+                var mainActivity = activity as MainActivity
+                mainActivity.showFragment(fragment)
             }
         })
         getViewBinding()?.rvCast?.adapter = mCastAdapter

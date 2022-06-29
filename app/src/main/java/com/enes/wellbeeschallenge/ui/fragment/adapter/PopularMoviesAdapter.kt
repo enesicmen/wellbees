@@ -72,8 +72,7 @@ class PopularMoviesAdapter(
             binding.ivMovie.loadTmdbImage(movieModel.posterImagePath)
 
             binding.tvTitle.text = movieModel.title
-            binding.tvOverView.text = movieModel.overview
-            binding.tvPopularity.text = movieModel.popularity.toString()
+            binding.tvAvarage.text = movieModel.average.toString()
             binding.tvReleaseDate.text = movieModel.releaseDate
 
             binding.root.setOnClickListener(

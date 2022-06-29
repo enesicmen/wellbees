@@ -1,83 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/ivMovie"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="10dp"
-        android:src="@color/cardview_dark_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageView>
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivMovie">
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ivMovie"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/placeholder_small"/>
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            tools:text="Title"
+            android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:layout_height="wrap_content">
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivMovie"
+            tools:text="Aquaman"/>
 
-        </TextView>
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_star"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintStart_toEndOf="@+id/ivMovie"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAvarage" />
 
         <TextView
-            android:id="@+id/tvOverView"
+            android:id="@+id/tvAvarage"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            tools:text="OverView"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:layout_height="wrap_content">
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintStart_toEndOf="@+id/ivStar"
+            tools:text="6.6"/>
 
-         </TextView>
+        <TextView
+            android:id="@+id/tvReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/tvAvarage"
+            app:layout_constraintStart_toEndOf="@+id/ivMovie"
+            tools:text="2021-01-15"/>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvPopularity"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                tools:text="1222.333"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:layout_height="wrap_content">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/tvReleaseDate"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                tools:text="2022-04-03"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:layout_height="wrap_content">
-
-            </TextView>
-</LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

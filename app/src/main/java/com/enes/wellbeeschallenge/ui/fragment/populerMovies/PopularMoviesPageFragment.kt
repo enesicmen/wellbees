@@ -1,7 +1,8 @@
 package com.enes.wellbeeschallenge.ui.fragment.populerMovies
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.enes.wellbeeschallenge.base.fragment.BaseVBFragment
 import com.enes.wellbeeschallenge.data.Resource
@@ -32,16 +33,13 @@ class PopularMoviesPageFragment :
             when (it) {
                 is Resource.Loading -> {
                     getViewBinding()?.progressBar?.visibility = View.VISIBLE
-                    Log.i("enesi", "Loading")
                 }
                 is Resource.Success -> {
                     getViewBinding()?.progressBar?.visibility = View.GONE
-                    // Log.i("enesi", "Success: ${it.data}")
                     setPopularMoviesList(it.data!!)
                 }
                 is Resource.Error -> {
                     getViewBinding()?.progressBar?.visibility = View.GONE
-                    Log.i("enesi", "Error: ${it.error}")
                 }
             }
         }
@@ -68,5 +66,22 @@ class PopularMoviesPageFragment :
         mPopularMoviesList.clear()
         mPopularMoviesList.addAll(popularMovies)
         mPopularMoviesAdapter.notifyDataSetChanged()
+    }
+
+    private fun searchMovie() {
+        getViewBinding()?.etSearch?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                TODO("Not yet implemented")
+            }
+        }
+        )
     }
 }
