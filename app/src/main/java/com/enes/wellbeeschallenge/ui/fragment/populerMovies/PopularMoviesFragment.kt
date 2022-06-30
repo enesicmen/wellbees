@@ -1,14 +1,12 @@
 package com.enes.wellbeeschallenge.ui.fragment.populerMovies
 
-import androidx.navigation.fragment.findNavController
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
-import com.enes.wellbeeschallenge.ui.base.BaseFragment
+import androidx.navigation.fragment.findNavController
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.MovieModel
 import com.enes.wellbeeschallenge.databinding.FragmentPopularMoviesBinding
+import com.enes.wellbeeschallenge.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,22 +61,5 @@ class PopularMoviesFragment :
         mPopularMoviesList.clear()
         mPopularMoviesList.addAll(popularMovies)
         mPopularMoviesAdapter.notifyDataSetChanged()
-    }
-
-    private fun searchMovie() {
-        getViewBinding()?.etSearch?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                TODO("Not yet implemented")
-            }
-        }
-        )
     }
 }
