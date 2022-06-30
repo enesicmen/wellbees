@@ -1,5 +1,6 @@
 package com.enes.wellbeeschallenge.ui.fragment.populerMovies
 
+import androidx.navigation.fragment.findNavController
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,9 +9,7 @@ import com.enes.wellbeeschallenge.base.fragment.BaseVBFragment
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.MovieModel
 import com.enes.wellbeeschallenge.databinding.FragmentPopularMoviesBinding
-import com.enes.wellbeeschallenge.ui.activity.MainActivity
 import com.enes.wellbeeschallenge.ui.fragment.adapter.PopularMoviesAdapter
-import com.enes.wellbeeschallenge.ui.fragment.movieDetail.MovieDetailPageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,9 +53,8 @@ class PopularMoviesPageFragment :
         mPopularMoviesAdapter = PopularMoviesAdapter(requireActivity(), mPopularMoviesList)
         mPopularMoviesAdapter.setCallBack(object : PopularMoviesAdapter.CallBack {
             override fun onClickItem(position: Int, movieModel: MovieModel) {
-                var fragment = MovieDetailPageFragment.newInstance(movieModel)
-                var mainActivity = activity as MainActivity
-                mainActivity.showFragment(fragment)
+                val actionDetail = PopularMoviesPageFragmentDirections.actionMovieListToMovieDetails(movie = movieModel)
+                findNavController().navigate(actionDetail)
             }
         })
         getViewBinding()?.rvPopularMovies?.adapter = mPopularMoviesAdapter

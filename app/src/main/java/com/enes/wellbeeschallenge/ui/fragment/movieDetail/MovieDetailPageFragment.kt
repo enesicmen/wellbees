@@ -2,6 +2,7 @@ package com.enes.wellbeeschallenge.ui.fragment.movieDetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.enes.wellbeeschallenge.base.fragment.BaseVBFragment
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.MovieCastModel
@@ -11,6 +12,7 @@ import com.enes.wellbeeschallenge.ui.activity.MainActivity
 import com.enes.wellbeeschallenge.ui.ext.loadTmdbImage
 import com.enes.wellbeeschallenge.ui.fragment.adapter.MovieCastAdapter
 import com.enes.wellbeeschallenge.ui.fragment.person.PersonPageFragment
+import com.enes.wellbeeschallenge.ui.fragment.populerMovies.PopularMoviesPageFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,18 +22,6 @@ class MovieDetailPageFragment :
     private lateinit var mMovie: MovieModel
     private lateinit var mCastAdapter: MovieCastAdapter
     private var mCastList = mutableListOf<MovieCastModel>()
-
-    companion object {
-        fun newInstance(
-            movie: MovieModel
-        ): MovieDetailPageFragment {
-            val args = Bundle()
-            var fragment = MovieDetailPageFragment()
-            fragment.mMovie = movie
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun initView(savedInstanceState: Bundle?) {
         setCastAdapter()
@@ -63,6 +53,14 @@ class MovieDetailPageFragment :
     override fun setViewBinding(): FragmentMovieDetailBinding =
         FragmentMovieDetailBinding.inflate(layoutInflater)
 
+    override fun readDataFromArguments() {
+        super.readDataFromArguments()
+        arguments?.let {
+            val safeArgs = MovieDetailPageFragmentArgs.fromBundle(it)
+            mMovie = safeArgs.movie
+        }
+    }
+
     private fun setData() {
         getViewBinding()?.movieBackdropImageView.loadTmdbImage(mMovie.backdropImagePath)
         getViewBinding()?.averageTextView?.text = mMovie.average.toString()
@@ -75,9 +73,11 @@ class MovieDetailPageFragment :
         mCastAdapter.setCallBack(object : MovieCastAdapter.CallBack {
 
             override fun onClickItem(position: Int, movieCastModel: MovieCastModel) {
-                var fragment = PersonPageFragment.newInstance(mCastList[position])
-                var mainActivity = activity as MainActivity
-                mainActivity.showFragment(fragment)
+                val actionDetail = MovieDetailPageFragmentDirections.actionMovieDetailsToPersonDetails(
+                    personId = movieCastModel.id,
+                    personName = movieCastModel.name
+                )
+                findNavController().navigate(actionDetail)
             }
         })
         getViewBinding()?.rvCast?.adapter = mCastAdapter

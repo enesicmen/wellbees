@@ -30,6 +30,7 @@ abstract class BaseVBFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragme
 
             viewBinding = setViewBinding()
             cachedView = mViewBinding?.root
+            readDataFromArguments()
             initView(savedInstanceState)
         }
         return cachedView
@@ -57,4 +58,6 @@ abstract class BaseVBFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragme
         super.onDestroy()
         viewBinding = null
     }
+
+    open fun readDataFromArguments() {}
 }
