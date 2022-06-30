@@ -1,9 +1,10 @@
 package com.enes.wellbeeschallenge.data.model
 
-import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MovieModel(
 
     val id: Int = -1,
@@ -32,36 +33,4 @@ data class MovieModel(
 
     val popularity: Double? = 0.0,
 
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readValue(Double::class.java.classLoader) as? Double,
-        parcel.readValue(Double::class.java.classLoader) as? Double,
-        parcel.readString(),
-        parcel.readValue(Double::class.java.classLoader) as? Double
-    ) {
-    }
-
-    override fun describeContents(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun writeToParcel(p0: Parcel?, p1: Int) {
-        TODO("Not yet implemented")
-    }
-
-    companion object CREATOR : Parcelable.Creator<MovieModel> {
-        override fun createFromParcel(parcel: Parcel): MovieModel {
-            return MovieModel(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MovieModel?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+) : Parcelable
