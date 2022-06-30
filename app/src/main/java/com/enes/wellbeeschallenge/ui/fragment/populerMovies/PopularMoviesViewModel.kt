@@ -1,6 +1,6 @@
 package com.enes.wellbeeschallenge.ui.fragment.populerMovies
 
-import com.enes.wellbeeschallenge.base.viewModel.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.enes.wellbeeschallenge.data.NetworkCallback
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.MovieModel
@@ -10,9 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularMoviesPageViewModel @Inject constructor(
+class PopularMoviesViewModel @Inject constructor(
     private val movieRepository: MovieRepository
-) : BaseViewModel() {
+) : ViewModel() {
 
     var movieList: SingleLiveEvent<Resource<List<MovieModel>>> = SingleLiveEvent()
 
@@ -22,6 +22,7 @@ class PopularMoviesPageViewModel @Inject constructor(
             override fun onSuccess(data: List<MovieModel>) {
                 movieList.value = Resource.Success(data)
             }
+
             override fun onError(message: String) {
                 movieList.value = Resource.Error(message)
             }

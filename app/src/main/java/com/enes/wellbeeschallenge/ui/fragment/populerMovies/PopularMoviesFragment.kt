@@ -5,23 +5,22 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import com.enes.wellbeeschallenge.base.fragment.BaseVBFragment
+import com.enes.wellbeeschallenge.ui.base.BaseFragment
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.MovieModel
 import com.enes.wellbeeschallenge.databinding.FragmentPopularMoviesBinding
-import com.enes.wellbeeschallenge.ui.fragment.adapter.PopularMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PopularMoviesPageFragment :
-    BaseVBFragment<FragmentPopularMoviesBinding, PopularMoviesPageViewModel>() {
+class PopularMoviesFragment :
+    BaseFragment<FragmentPopularMoviesBinding, PopularMoviesViewModel>() {
 
     lateinit var mPopularMoviesAdapter: PopularMoviesAdapter
 
     private var mPopularMoviesList: MutableList<MovieModel> = arrayListOf()
 
     override fun setViewModelClass() =
-        PopularMoviesPageViewModel::class.java
+        PopularMoviesViewModel::class.java
 
     override fun setViewBinding(): FragmentPopularMoviesBinding =
         FragmentPopularMoviesBinding.inflate(layoutInflater)
@@ -44,8 +43,8 @@ class PopularMoviesPageFragment :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun initLogic() {
+        super.initLogic()
         getViewModel().getPopularMovies()
     }
 
@@ -53,7 +52,7 @@ class PopularMoviesPageFragment :
         mPopularMoviesAdapter = PopularMoviesAdapter(requireActivity(), mPopularMoviesList)
         mPopularMoviesAdapter.setCallBack(object : PopularMoviesAdapter.CallBack {
             override fun onClickItem(position: Int, movieModel: MovieModel) {
-                val actionDetail = PopularMoviesPageFragmentDirections.actionMovieListToMovieDetails(movie = movieModel)
+                val actionDetail = PopularMoviesFragmentDirections.actionMovieListToMovieDetails(movie = movieModel)
                 findNavController().navigate(actionDetail)
             }
         })

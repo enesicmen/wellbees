@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/popularMoviesFragment"
-        android:name="com.enes.wellbeeschallenge.ui.fragment.populerMovies.PopularMoviesPageFragment"
+        android:name="com.enes.wellbeeschallenge.ui.fragment.populerMovies.PopularMoviesFragment"
         android:label="Movies"
         tools:layout="@layout/fragment_popular_movies">
 
@@ -20,9 +20,9 @@
 
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.enes.wellbeeschallenge.ui.fragment.movieDetail.MovieDetailPageFragment"
+        android:name="com.enes.wellbeeschallenge.ui.fragment.movieDetail.MovieDetailFragment"
         android:label="Movie Details"
-        tools:layout="@layout/fragment_movie_detail">
+        tools:layout="@layout/fragment_movie_details">
 
         <argument
             android:name="movie"
@@ -36,9 +36,9 @@
 
     <fragment
         android:id="@+id/personDetailsFragment"
-        android:name="com.enes.wellbeeschallenge.ui.fragment.person.PersonPageFragment"
+        android:name="com.enes.wellbeeschallenge.ui.fragment.person.PersonDetailsFragment"
         android:label="Person Details"
-        tools:layout="@layout/fragment_person_detail">
+        tools:layout="@layout/fragment_person_details">
 
         <argument
             android:name="personId"

@@ -1,4 +1,4 @@
-package com.enes.wellbeeschallenge.ui.fragment.adapter
+package com.enes.wellbeeschallenge.ui.fragment.populerMovies
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -7,80 +7,76 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.enes.wellbeeschallenge.R
-import com.enes.wellbeeschallenge.data.model.MovieCastModel
-import com.enes.wellbeeschallenge.databinding.ItemRowCastBinding
+import com.enes.wellbeeschallenge.data.model.MovieModel
+import com.enes.wellbeeschallenge.databinding.RowPopularMoviesBinding
 import com.enes.wellbeeschallenge.ui.ext.loadTmdbImage
 
-class MovieCastAdapter(
+class PopularMoviesAdapter(
     activity: Activity,
-    castList: List<MovieCastModel>
+    popularMovies: List<MovieModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val RES_ITEM_ROW: Int = R.layout.item_row_cast
+    private val RES_ITEM_ROW: Int = R.layout.row_popular_movies
     private var mInflater: LayoutInflater? = null
     private var mLayoutManager: LinearLayoutManager? = null
     private var mActivity: Activity? = null
     private var mCallback: CallBack? = null
-    private var mMoviecastList: List<MovieCastModel>
+    private var mPopularMoviesList: List<MovieModel>
 
     init {
         mActivity = activity
         mInflater = LayoutInflater.from(mActivity)
         mLayoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
-        mMoviecastList = castList
+        mPopularMoviesList = popularMovies
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         recyclerView.layoutManager = mLayoutManager
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val item: View = mInflater?.inflate(RES_ITEM_ROW, parent, false)!!
-        return MovieDetailViewHolder(item)
+        return PopularMoviesViewHolder(item)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val mMovieDetail: MovieCastModel =
-            mMoviecastList[position]
+        val mPopularMovies: MovieModel =
+            mPopularMoviesList[position]
 
-        (holder as MovieDetailViewHolder).onbind(
+        (holder as PopularMoviesViewHolder).onBind(
             position,
-            mMovieDetail
+            mPopularMovies
         )
     }
 
     override fun getItemCount(): Int {
-        return mMoviecastList.size
+        return mPopularMoviesList.size
     }
 
     fun setCallBack(callBack: CallBack?) {
         mCallback = callBack
     }
 
-    inner class MovieDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = ItemRowCastBinding.bind(itemView)
+    inner class PopularMoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val binding = RowPopularMoviesBinding.bind(itemView)
 
-        init {
-            setFontSize()
-        }
+        fun onBind(position: Int, movieModel: MovieModel) {
 
-        private fun setFontSize() {
-        }
+            binding.ivMovie.loadTmdbImage(movieModel.posterImagePath)
 
-        fun onbind(position: Int, movieCastModel: MovieCastModel) {
-            binding.ivProfile.loadTmdbImage(movieCastModel.imagePath)
-            binding.tvArtistName.text = movieCastModel.name
-            binding.tvCharacterName.text = movieCastModel.character
+            binding.tvTitle.text = movieModel.title
+            binding.tvAvarage.text = movieModel.average.toString()
+            binding.tvReleaseDate.text = movieModel.releaseDate
+
             binding.root.setOnClickListener(
                 View.OnClickListener {
-                    mCallback?.onClickItem(position, movieCastModel)
+                    mCallback?.onClickItem(position, movieModel)
                 }
             )
         }
     }
 
     interface CallBack {
-        fun onClickItem(position: Int, movieCastModel: MovieCastModel)
+        fun onClickItem(position: Int, movieModel: MovieModel)
     }
 }

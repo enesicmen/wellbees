@@ -1,6 +1,6 @@
 package com.enes.wellbeeschallenge.ui.fragment.person
 
-import com.enes.wellbeeschallenge.base.viewModel.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.enes.wellbeeschallenge.data.NetworkCallback
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.PersonModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PersonPageViewModel @Inject constructor(
     private val personRepository: PersonRepository
-) : BaseViewModel() {
+) : ViewModel() {
 
     var personDetailList: SingleLiveEvent<Resource<PersonModel>> = SingleLiveEvent()
 

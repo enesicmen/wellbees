@@ -7,7 +7,6 @@ import com.enes.wellbeeschallenge.BuildConfig
 import com.enes.wellbeeschallenge.R
 import com.squareup.picasso.Picasso
 
-
 fun ImageView?.loadTmdbImage(url: String?, placeHolder: Drawable? = null) {
     this?.let {
         url?.let {
@@ -25,7 +24,8 @@ fun ImageView?.load(
     this?.let { imageView ->
         url?.let {
             val requestCreator = Picasso.get().load(it)
-            val placeHolderDrawable: Drawable = placeHolder ?: ContextCompat.getDrawable(context, R.drawable.placeholder_small)!!
+            val placeHolderDrawable: Drawable =
+                placeHolder ?: ContextCompat.getDrawable(context, R.drawable.placeholder_small)!!
             if (withPlaceholder) {
                 requestCreator.placeholder(placeHolderDrawable)
             }

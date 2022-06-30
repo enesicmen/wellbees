@@ -3,21 +3,17 @@ package com.enes.wellbeeschallenge.ui.fragment.movieDetail
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
-import com.enes.wellbeeschallenge.base.fragment.BaseVBFragment
 import com.enes.wellbeeschallenge.data.Resource
 import com.enes.wellbeeschallenge.data.model.MovieCastModel
 import com.enes.wellbeeschallenge.data.model.MovieModel
-import com.enes.wellbeeschallenge.databinding.FragmentMovieDetailBinding
-import com.enes.wellbeeschallenge.ui.activity.MainActivity
+import com.enes.wellbeeschallenge.databinding.FragmentMovieDetailsBinding
+import com.enes.wellbeeschallenge.ui.base.BaseFragment
 import com.enes.wellbeeschallenge.ui.ext.loadTmdbImage
-import com.enes.wellbeeschallenge.ui.fragment.adapter.MovieCastAdapter
-import com.enes.wellbeeschallenge.ui.fragment.person.PersonPageFragment
-import com.enes.wellbeeschallenge.ui.fragment.populerMovies.PopularMoviesPageFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieDetailPageFragment :
-    BaseVBFragment<FragmentMovieDetailBinding, MovieDetailPageViewModel>() {
+class MovieDetailFragment :
+    BaseFragment<FragmentMovieDetailsBinding, MovieDetailViewModel>() {
 
     private lateinit var mMovie: MovieModel
     private lateinit var mCastAdapter: MovieCastAdapter
@@ -42,30 +38,32 @@ class MovieDetailPageFragment :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun initLogic() {
+        super.initLogic()
         getViewModel().getMovieDetail(mMovie.id)
     }
 
     override fun setViewModelClass() =
-        MovieDetailPageViewModel::class.java
+        MovieDetailViewModel::class.java
 
-    override fun setViewBinding(): FragmentMovieDetailBinding =
-        FragmentMovieDetailBinding.inflate(layoutInflater)
+    override fun setViewBinding(): FragmentMovieDetailsBinding =
+        FragmentMovieDetailsBinding.inflate(layoutInflater)
 
     override fun readDataFromArguments() {
         super.readDataFromArguments()
         arguments?.let {
-            val safeArgs = MovieDetailPageFragmentArgs.fromBundle(it)
+            val safeArgs = MovieDetailFragmentArgs.fromBundle(it)
             mMovie = safeArgs.movie
         }
     }
 
     private fun setData() {
-        getViewBinding()?.movieBackdropImageView.loadTmdbImage(mMovie.backdropImagePath)
-        getViewBinding()?.averageTextView?.text = mMovie.average.toString()
-        getViewBinding()?.releaseDateTextView?.text = mMovie.releaseDate.toString()
-        getViewBinding()?.movieOverviewTextView?.text = mMovie.overview.toString()
+        getViewBinding()?.apply {
+            movieBackdropImageView.loadTmdbImage(mMovie.backdropImagePath)
+            averageTextView.text = mMovie.average.toString()
+            releaseDateTextView.text = mMovie.releaseDate.toString()
+            movieOverviewTextView.text = mMovie.overview.toString()
+        }
     }
 
     private fun setCastAdapter() {
@@ -73,7 +71,7 @@ class MovieDetailPageFragment :
         mCastAdapter.setCallBack(object : MovieCastAdapter.CallBack {
 
             override fun onClickItem(position: Int, movieCastModel: MovieCastModel) {
-                val actionDetail = MovieDetailPageFragmentDirections.actionMovieDetailsToPersonDetails(
+                val actionDetail = MovieDetailFragmentDirections.actionMovieDetailsToPersonDetails(
                     personId = movieCastModel.id,
                     personName = movieCastModel.name
                 )

@@ -1,14 +1,15 @@
-package com.enes.wellbeeschallenge.base.fragment
+package com.enes.wellbeeschallenge.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.enes.wellbeeschallenge.base.viewModel.BaseViewModel
 
-abstract class BaseVBFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
+abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     private var cachedView: View? = null
 
@@ -24,20 +25,16 @@ abstract class BaseVBFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragme
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         if (cachedView == null) {
-            mViewModel = ViewModelProvider(this).get(setViewModelClass())
+            mViewModel = ViewModelProvider(this)[setViewModelClass()]
 
             viewBinding = setViewBinding()
             cachedView = mViewBinding?.root
             readDataFromArguments()
             initView(savedInstanceState)
+            initLogic()
         }
         return cachedView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     abstract fun initView(savedInstanceState: Bundle?)
@@ -46,18 +43,16 @@ abstract class BaseVBFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragme
 
     abstract fun setViewBinding(): VB
 
-    open fun getViewBinding(): VB? {
-        return mViewBinding
-    }
+    open fun getViewBinding(): VB? = mViewBinding
 
-    open fun getViewModel(): VM {
-        return mViewModel
-    }
+    open fun getViewModel(): VM = mViewModel
+
+    open fun readDataFromArguments() {}
+
+    open fun initLogic() {}
 
     override fun onDestroy() {
         super.onDestroy()
         viewBinding = null
     }
-
-    open fun readDataFromArguments() {}
 }
