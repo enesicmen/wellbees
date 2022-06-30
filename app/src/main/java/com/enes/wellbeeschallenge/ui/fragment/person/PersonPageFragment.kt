@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.enes.wellbeeschallenge.base.fragment.BaseVBFragment
 import com.enes.wellbeeschallenge.data.Resource
-import com.enes.wellbeeschallenge.data.model.MovieCastModel
 import com.enes.wellbeeschallenge.data.model.PersonModel
 import com.enes.wellbeeschallenge.databinding.FragmentPersonDetailBinding
 import com.enes.wellbeeschallenge.ui.ext.loadTmdbImage
-import com.enes.wellbeeschallenge.ui.fragment.movieDetail.MovieDetailPageFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +31,7 @@ class PersonPageFragment :
                 }
                 is Resource.Success -> {
                     getViewBinding()?.progressBar?.visibility = View.GONE
+                    person = it.data
                     setData()
                 }
                 is Resource.Error -> {
@@ -53,13 +52,12 @@ class PersonPageFragment :
 
     override fun onResume() {
         super.onResume()
-        //getViewModel().getPersonDetailList(mCast.id)
+        getViewModel().getPersonDetails(personId = personId)
     }
 
     private fun setData() {
-        //getViewBinding()?.ivProfile.loadTmdbImage(mCast.imagePath)
-        //getViewBinding()?.tvBiography?.text = mCast.character
-        //getViewBinding()?.tvName?.text = mCast.name
-        // getViewBinding()?.tvBiography?.text = mPersonDetail.biography
+        getViewBinding()?.ivProfile.loadTmdbImage(person?.imagePath)
+        getViewBinding()?.tvName?.text = personName
+        getViewBinding()?.tvBiography?.text = person?.biography
     }
 }

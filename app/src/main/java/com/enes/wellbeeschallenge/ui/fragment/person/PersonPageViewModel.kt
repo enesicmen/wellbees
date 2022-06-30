@@ -14,14 +14,14 @@ class PersonPageViewModel @Inject constructor(
     private val personRepository: PersonRepository
 ) : BaseViewModel() {
 
-    var personDetailList: SingleLiveEvent<Resource<List<PersonModel>>> = SingleLiveEvent()
+    var personDetailList: SingleLiveEvent<Resource<PersonModel>> = SingleLiveEvent()
 
-    fun getPersonDetailList(personId: Int) {
+    fun getPersonDetails(personId: Int) {
         personDetailList.value = Resource.Loading()
         personRepository.getPersonDetail(
             personId,
-            object : NetworkCallback<List<PersonModel>> {
-                override fun onSuccess(data: List<PersonModel>) {
+            object : NetworkCallback<PersonModel> {
+                override fun onSuccess(data: PersonModel) {
                     personDetailList.value = Resource.Success(data)
                 }
 

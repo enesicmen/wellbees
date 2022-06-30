@@ -2,7 +2,7 @@ package com.enes.wellbeeschallenge.data.api
 
 import PopularMoviesApiResponse
 import com.enes.wellbeeschallenge.data.api.response.MovieCastApiResponse
-import com.enes.wellbeeschallenge.data.api.response.PersonApiResponse
+import com.enes.wellbeeschallenge.data.model.PersonModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,5 +16,5 @@ interface ApiService {
     fun getCastOfAMovie(@Path("movieId") movieId: Int): Call<MovieCastApiResponse>
 
     @GET("person/{personId}")
-    fun getPersonDetails(@Path("personId") personId: Int): Call<PersonApiResponse>
+    fun getPersonDetails(@Path("personId") personId: Int): Call<PersonModel>
 }
